@@ -22,24 +22,24 @@ metadata {
         command "fan1Low"
         command "fan1Medium"
         command "fan1High"
-		command "light1On"
-        command "light1Off"
+		//command "light1On"
+        //command "light1Off"
 		command "light1Toggle"
 		
         command "fan2Off"
         command "fan2Low"
         command "fan2Medium"
         command "fan2High"
-		command "light2On"
-        command "light2Off"		
+		//command "light2On"
+        //command "light2Off"		
 		command "light2Toggle"
         
        	command "fan3Off"
         command "fan3Low"
         command "fan3Medium"
         command "fan3High"
-		command "light3On"
-        command "light3Off"
+		//command "light3On"
+        //command "light3Off"
 		command "light3Toggle"
 	}
     
@@ -52,10 +52,11 @@ metadata {
 			state "medium", label:'MEDIUM', action:"fan1High", icon:"st.Lighting.light24", backgroundColor:"#79b821", nextState: "high"
 			state "high", label:'HIGH', action:"fan1Off", icon:"st.Lighting.light24", backgroundColor:"#79b821", nextState: "off"			
 		}	
-        standardTile("light1", "device.light1", inactiveLabel: false, decoration: "flat") {            
-            state "off", label: '${name}', action: "light1On", icon:"st.Lighting.light11", backgroundColor: "#ffffff", nextState: "on"
-			state "on", label: '${name}', action: "light1Off", icon:"st.Lighting.light11", backgroundColor: "#79b821", nextState: "off" 
+		
+        standardTile("light1", "device.light1", canChangeIcon: false, inactiveLabel: false, decoration: "flat") {            
+            state "off", label: "ON/OFF", action: "light1Toggle", icon:"st.Lighting.light13"			
         }		
+		
 		standardTile("fan1off", "device.fan1off", canChangeIcon: false, inactiveLabel: false, decoration: "flat") {
 			state "off", label: "", action: "fan1Off", icon:"st.thermostat.fan-off"		 
 		} 
@@ -66,10 +67,9 @@ metadata {
 			state "medium", label:'MEDIUM', action:"fan2High", icon:"st.Lighting.light24", backgroundColor:"#79b821", nextState: "high"
 			state "high", label:'HIGH', action:"fan2Off", icon:"st.Lighting.light24", backgroundColor:"#79b821", nextState: "off"			
 		}	
-        standardTile("light2", "device.light2", inactiveLabel: false, decoration: "flat") {            
-            state "off", label: '${name}', action: "light2On", icon:"st.Lighting.light11", backgroundColor: "#ffffff", nextState: "on"
-			state "on", label: '${name}', action: "light2Off", icon:"st.Lighting.light11", backgroundColor: "#79b821", nextState: "off" 
-        }		
+        standardTile("light2", "device.light2", canChangeIcon: false, inactiveLabel: false, decoration: "flat") {            
+            state "off", label: "ON/OFF", action: "light2Toggle", icon:"st.Lighting.light13"			
+        }			
 		standardTile("fan2off", "device.fan2off", canChangeIcon: false, inactiveLabel: false, decoration: "flat") {
 			state "off", label: "", action: "fan2Off", icon:"st.thermostat.fan-off"		 
 		} 
@@ -80,10 +80,9 @@ metadata {
 			state "medium", label:'MEDIUM', action:"fan3High", icon:"st.Lighting.light24", backgroundColor:"#79b821", nextState: "high"
 			state "high", label:'HIGH', action:"fan3Off", icon:"st.Lighting.light24", backgroundColor:"#79b821", nextState: "off"			
 		}	
-        standardTile("light3", "device.light3", inactiveLabel: false, decoration: "flat") {            
-            state "off", label: '${name}', action: "light3On", icon:"st.Lighting.light11", backgroundColor: "#ffffff", nextState: "on"
-			state "on", label: '${name}', action: "light3Off", icon:"st.Lighting.light11", backgroundColor: "#79b821", nextState: "off" 
-        }		
+        standardTile("light3", "device.light3", canChangeIcon: false, inactiveLabel: false, decoration: "flat") {            
+            state "off", label: "ON/OFF", action: "light3Toggle", icon:"st.Lighting.light13"			
+        }			
 		standardTile("fan3off", "device.fan3off", canChangeIcon: false, inactiveLabel: false, decoration: "flat") {
 			state "off", label: "", action: "fan3Off", icon:"st.thermostat.fan-off"		 
 		} 
@@ -114,6 +113,7 @@ def fan1High() {
 	log.debug "Turning Fan 1 to High"
     zigbee.smartShield(text: "fan1high").format()
 }
+/*
 def light1On() {	 	 
 	sendEvent(name: "light1", value: "on", isStateChange: true, display: false)	  
 	light1Toggle()
@@ -122,6 +122,7 @@ def light1Off() {
 	sendEvent(name: "light1", value: "off", isStateChange: true, display: false)    	
     light1Toggle()
 }
+*/
 def light1Toggle() { 
 	log.info "Light 1 toggle" 
     zigbee.smartShield(text: "fan1light").format()
@@ -147,6 +148,7 @@ def fan2High() {
 	log.debug "Turning Fan 2 to High"
     zigbee.smartShield(text: "fan2high").format()
 }
+/*
 def light2On() {	 	 
 	sendEvent(name: "light2", value: "on", isStateChange: true, display: false)	  
 	light2Toggle()
@@ -155,6 +157,7 @@ def light2Off() {
 	sendEvent(name: "light2", value: "off", isStateChange: true, display: false)    	
     light2Toggle()
 }
+*/
 def light2Toggle() { 
 	log.info "Light 2 toggle" 
     zigbee.smartShield(text: "fan2light").format()
@@ -180,6 +183,7 @@ def fan3High() {
 	log.debug "Turning Fan 3 to High"
     zigbee.smartShield(text: "fan3high").format()
 }
+/*
 def light3On() {	 	 
 	sendEvent(name: "light3", value: "on", isStateChange: true, display: false)	  
 	light3Toggle()
@@ -188,6 +192,7 @@ def light3Off() {
 	sendEvent(name: "light3", value: "off", isStateChange: true, display: false)    		
     light3Toggle()
 }
+*/
 def light3Toggle() { 
 	log.info "Light 3 toggle"
     zigbee.smartShield(text: "fan3light").format()
