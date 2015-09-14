@@ -1,5 +1,5 @@
 /*	Virtual fan switch with on/off, low, med, high buttons. Switch take the strings off, low, med, high and makes them
-	into setlevels as 0=off, 33=low, 66=med, 99=high. levels are used by smartapp that controls arduino fan relay.
+	into setlevels as 0=off, 25=low, 50=med, 75=high. levels are used by smartapp that controls arduino fan relay.
 	Original version: https://github.com/tomforti/relay_hampton_bay_fan/blob/master/VirtualFanSwitch.groovy
 	Modified by tamttt to add light on/off function
 */ 
@@ -29,11 +29,11 @@ metadata {
 
 	tiles {
 		
-		standardTile("fan", "device.fan", width: 2, height: 2, canChangeIcon: true) {        	
-        	state "off", label:'OFF', action:"fanLow", icon:"st.Lighting.light24", backgroundColor:"#ffffff", nextState: "low"
+		standardTile("fan", "device.fan", width: 2, height: 2, canChangeIcon: true) {
 			state "low", label:'LOW', action:"fanMedium", icon:"st.Lighting.light24", backgroundColor:"#79b821", nextState: "medium"
 			state "medium", label:'MEDIUM', action:"fanHigh", icon:"st.Lighting.light24", backgroundColor:"#79b821", nextState: "high"
-			state "high", label:'HIGH', action:"fanOff", icon:"st.Lighting.light24", backgroundColor:"#79b821", nextState: "off"			
+			state "high", label:'HIGH', action:"fanOff", icon:"st.Lighting.light24", backgroundColor:"#79b821", nextState: "off"	
+			state "off", label:'OFF', action:"fanLow", icon:"st.Lighting.light24", backgroundColor:"#ffffff", nextState: "low"				
 		}
 /*		
 		//displays current speed as off, low, med, high
@@ -62,7 +62,7 @@ metadata {
             state "fanLow", label:'LOW', action:"fanLow", icon:"st.Home.home30"
         }
         standardTile("fanMedium", "device.level", inactiveLabel: false, decoration: "flat") {
-            state "fanMedium", label:'MED', action:"fanMedium", icon:"st.Home.home30"
+            state "fanMedium", label:'MEDIUM', action:"fanMedium", icon:"st.Home.home30"
         }
         standardTile("fanHigh", "device.level", inactiveLabel: false, decoration: "flat") {
             state "fanHigh", label:'HIGH', action:"fanHigh", icon:"st.Home.home30"
@@ -82,10 +82,12 @@ def parse(String description) {
 }
 
 def on() {
+	log.info "Fan turn on"
 	fanMedium()
 }
 
 def off() {
+	log.info "Fan turn off"
 	fanOff()
 }
 	
@@ -95,27 +97,26 @@ def setLevel(val){
     sendEvent(name:"switch.setLevel",value:val) // had to add this to work if apps subscribed to setLevel event. "Dim With Me" was one.
 }
 
-
 def fanLow() {		
-    setLevel(33)	
+    setLevel(25)	
     log.info "Fan low"
-	sendEvent(name: "fan", value: "low", isStateChange: true, display: false)      
+	sendEvent(name: "fan", value: "on", isStateChange: true, display: false)      
     sendEvent(name: "currentSpeed", value: "LOW" as String)      
 }
 
 def fanMedium() {
 	//fan.on()
-    setLevel(66)
+    setLevel(50)
 	log.info "Fan medium"    
-	sendEvent(name: "fan", value: "medium", isStateChange: true, display: false) 
-	sendEvent(name: "currentSpeed", value: "MED" as String)
+	sendEvent(name: "fan", value: "on", isStateChange: true, display: false) 
+	sendEvent(name: "currentSpeed", value: "MEDIUM" as String)
 }
 
 def fanHigh() {
 	//fan.on()
-    setLevel(99)
+    setLevel(75)
 	log.info "Fan high"    
-	sendEvent(name: "fan", value: "high", isStateChange: true, display: false)   
+	sendEvent(name: "fan", value: "on", isStateChange: true, display: false)   
 	sendEvent(name: "currentSpeed", value: "HIGH" as String)	
 }
 

@@ -51,16 +51,21 @@ def fan1val(evt) {
 	log.debug "level: $level"	
     
     if (level == 0) {
+		log.debug "Fan 1 level from smartapp: 0"
     	arduino.fan1Off() //tell the arduino to turn trigger this arduino switch    	
     }
-     if (level == 33) {
+	
+    if (level == 25){ // level 25 for Alexa to control fan
+		log.debug "Fan 1 level from smartapp: 25"
     	arduino.fan1Low()    	
     }
-     if (level == 66) {
+     if (level == 50) {
+		log.debug "Fan 1 level from smartapp: 50"
     	arduino.fan1Medium()
     	
     }
-     if (level == 99) {
+     if (level == 75) {
+		log.debug "Fan 1 level from smartapp: 75"
     	arduino.fan1High()    	
     }
 }
@@ -80,14 +85,14 @@ def fan2val(evt) {
     if (level == 0) {
     	arduino.fan2Off()    	
     }
-     if (level == 33) {
+    if (level == 25){ 
     	arduino.fan2Low()    	
     }
-     if (level == 66) {
+    if (level == 50) {
     	arduino.fan2Medium()
     	
     }
-     if (level == 99) {
+     if (level == 75) {
     	arduino.fan2High()    	
     }
 }
@@ -106,13 +111,13 @@ def fan3val(evt) {
     if (level == 0) {
     	arduino.fan3Off()    	
     }
-     if (level == 33) {
+    if (level == 25) { 
     	arduino.fan3Low()    	
     }
-     if (level == 66) {
+     if (level == 50) {
     	arduino.fan3Medium()    	
     }
-     if (level == 99) {
+     if (level == 75) {
     	arduino.fan3High()    	
     }
 }
