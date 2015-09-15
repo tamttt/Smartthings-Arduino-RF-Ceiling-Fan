@@ -55,21 +55,19 @@ def fan1val(evt) {
 	int level = fan1.currentValue("level")
 	log.debug "level: $level"	
     
-    if (level == 0) {
+    if ((level >= 0) && (level < 25)) {
 		log.debug "Fan 1 level from smartapp: 0"
     	arduino.fan1Off() //tell the arduino to turn trigger this arduino switch    	
-    }
-	
-    if (level == 25){ // level 25 for Alexa to control fan
+    }	
+    if ((level >= 25) && (level < 50)) {
 		log.debug "Fan 1 level from smartapp: 25"
     	arduino.fan1Low()    	
     }
-     if (level == 50) {
+    if ((level >= 50) && (level < 75)) {
 		log.debug "Fan 1 level from smartapp: 50"
-    	arduino.fan1Medium()
-    	
+    	arduino.fan1Medium()    	
     }
-     if (level == 75) {
+    if (level >= 75) {
 		log.debug "Fan 1 level from smartapp: 75"
     	arduino.fan1High()    	
     }
@@ -86,17 +84,16 @@ def fan2val(evt) {
 	int level = fan2.currentValue("level")
 	log.debug "level: $level"
     
-    if (level == 0) {
+    if ((level >= 0) && (level < 25)) {
     	arduino.fan2Off()    	
     }
-    if (level == 25){ 
+    if ((level >= 25) && (level < 50)) {
     	arduino.fan2Low()    	
     }
-    if (level == 50) {
-    	arduino.fan2Medium()
-    	
+    if ((level >= 50) && (level < 75)) {
+    	arduino.fan2Medium()    	
     }
-     if (level == 75) {
+    if (level >= 75) {
     	arduino.fan2High()    	
     }
 }
@@ -112,16 +109,16 @@ def fan3val(evt) {
 	int level = fan3.currentValue("level")
 	log.debug "level: $level"
     
-    if (level == 0) {
+    if ((level >= 0) && (level < 25)) {
     	arduino.fan3Off()    	
     }
-    if (level == 25) { 
+    if ((level >= 25) && (level < 50)) {
     	arduino.fan3Low()    	
     }
-     if (level == 50) {
+    if ((level >= 50) && (level < 75)) {
     	arduino.fan3Medium()    	
     }
-     if (level == 75) {
+    if (level >= 75) {
     	arduino.fan3High()    	
     }
 }
@@ -137,16 +134,16 @@ def fan4val(evt) {
 	int level = fan4.currentValue("level")
 	log.debug "level: $level"
     
-    if (level == 0) {
+    if ((level >= 0) && (level < 25)) {
     	arduino.fan4Off()    	
     }
-    if (level == 25) { 
+    if ((level >= 25) && (level < 50)) {
     	arduino.fan4Low()    	
     }
-     if (level == 50) {
+    if ((level >= 50) && (level < 75)) {
     	arduino.fan4Medium()    	
     }
-     if (level == 75) {
+    if (level >= 75) {
     	arduino.fan4High()    	
     }
 }

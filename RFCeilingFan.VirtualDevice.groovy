@@ -50,12 +50,13 @@ metadata {
 		
         standardTile("light", "device.light", canChangeIcon: false, inactiveLabel: false, decoration: "flat") {            
             //state "off", label: 'ON/OFF', action: "lightOn", icon:"st.Lighting.light11", backgroundColor: "#ffffff", nextState: "on"
-			//state "on", label: 'ON/OFF', action: "lightOff", icon:"st.Lighting.light11", backgroundColor: "#79b821", nextState: "off" 
+			//state "on", label: 'ON/OFF', action: "lightOff", icon:"st.Lighting.light11", backgroundColor: "#79b821"
         	state "off", label: "ON/OFF", action: "lightPush", icon:"st.Lighting.light13"
         }
 		
-		standardTile("fanoff", "device.fanoff", canChangeIcon: false, inactiveLabel: false, decoration: "flat") {
-			state "off", label: "", action: "fanOff", icon:"st.thermostat.fan-off"		 
+		standardTile("switch", "device.switch", canChangeIcon: false, inactiveLabel: false, decoration: "flat") {
+			state "off", label: "", action: "on", icon:"st.thermostat.fan-on", backgroundColor: "#ffffff", nextState: "on"
+            state "on", label: "", action: "off", icon:"st.thermostat.fan-off", backgroundColor: "#79b821"		 
 		}    		
 
 		//Speed control row
@@ -75,7 +76,7 @@ metadata {
 		}
 */
 		main(["fan"])
-		details(["fan", "light", "fanoff", "fanLow", "fanMedium", "fanHigh"])
+		details(["fan", "light", "switch", "fanLow", "fanMedium", "fanHigh"])
 	}
 }
 
@@ -97,20 +98,24 @@ def setLevel(val){
 	log.info "Set level to $val"
     sendEvent(name:"level",value:val)
     sendEvent(name:"switch.setLevel",value:val) // had to add this to work if apps subscribed to setLevel event. "Dim With Me" was one.
-	if (val == 0) {
+	if ((val >= 0) && (val < 25)) {
 		log.info "Fan off"
+        sendEvent(name: "switch", value: "off", isStateChange: true, display: false) 
 		sendEvent(name: "fan", value: "off", isStateChange: true, display: false) 
 	}
-	if (val == 25) {
+	if ((val >= 25) && (val < 50)) {
 		log.info "Fan low" 
+        sendEvent(name: "switch", value: "on", isStateChange: true, display: false) 
 		sendEvent(name: "fan", value: "low", isStateChange: true, display: false) 
 	}
-	if (val == 50) {
+	if ((val >= 50) && (val < 75)) {
 		log.info "Fan medium"
+        sendEvent(name: "switch", value: "on", isStateChange: true, display: false) 
 		sendEvent(name: "fan", value: "medium", isStateChange: true, display: false) 
 	}
-	if (val == 75) {
+	if (val >= 75) {
 		log.info "Fan high"
+        sendEvent(name: "switch", value: "on", isStateChange: true, display: false) 
 		sendEvent(name: "fan", value: "high", isStateChange: true, display: false) 
 	}
 }
