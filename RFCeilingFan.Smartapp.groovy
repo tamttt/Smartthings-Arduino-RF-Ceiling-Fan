@@ -18,6 +18,7 @@ preferences {
 		input "fan1", title: "Fan 1 for Arduino", "capability.switchLevel"
         input "fan2", title: "Fan 2 for Arduino", "capability.switchLevel", required: false  
 		input "fan3", title: "Fan 3 for Arduino", "capability.switchLevel", required: false
+		input "fan4", title: "Fan 4 for Arduino", "capability.switchLevel", required: false
 	}
     section("Which Arduino board to control?") {
 		input "arduino", "capability.switch", required: true
@@ -31,6 +32,8 @@ def installed() {
     subscribe(fan2, "light", light2val)   
 	subscribe(fan3, "fan", fan3val)
     subscribe(fan3, "light", light3val)
+	subscribe(fan4, "fan", fan4val)
+    subscribe(fan4, "light", light4val)
 }
 
 //checks for changes from the vitural fan switch
@@ -42,6 +45,8 @@ def updated() {
     subscribe(fan2, "light", light2val)   
 	subscribe(fan3, "fan", fan3val)
     subscribe(fan3, "light", light3val)
+	subscribe(fan4, "fan", fan4val)
+    subscribe(fan4, "light", light4val)
     log.info "subscribed to all of Fan events"
 }
 
@@ -76,7 +81,6 @@ def light1val(evt) {
 		arduino.light1Toggle()
 	}
 }
-
 
 def fan2val(evt) {	
 	int level = fan2.currentValue("level")
@@ -126,6 +130,31 @@ def light3val(evt) {
 	log.debug "Light 3 from smartapp: $evt.value"
 	if ((evt.value == "on") || (evt.value == "off" )) {
 		arduino.light3Toggle()
+	}
+}
+
+def fan4val(evt) {	
+	int level = fan4.currentValue("level")
+	log.debug "level: $level"
+    
+    if (level == 0) {
+    	arduino.fan4Off()    	
+    }
+    if (level == 25) { 
+    	arduino.fan4Low()    	
+    }
+     if (level == 50) {
+    	arduino.fan4Medium()    	
+    }
+     if (level == 75) {
+    	arduino.fan4High()    	
+    }
+}
+
+def light4val(evt) {
+	log.debug "Light 4 from smartapp: $evt.value"
+	if ((evt.value == "on") || (evt.value == "off" )) {
+		arduino.light4Toggle()
 	}
 }
 

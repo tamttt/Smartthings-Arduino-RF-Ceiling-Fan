@@ -21,26 +21,26 @@ metadata {
 		command "fan1Off"
         command "fan1Low"
         command "fan1Medium"
-        command "fan1High"
-		//command "light1On"
-        //command "light1Off"
+        command "fan1High"		
 		command "light1Toggle"
 		
         command "fan2Off"
         command "fan2Low"
         command "fan2Medium"
-        command "fan2High"
-		//command "light2On"
-        //command "light2Off"		
+        command "fan2High"				
 		command "light2Toggle"
         
        	command "fan3Off"
         command "fan3Low"
         command "fan3Medium"
-        command "fan3High"
-		//command "light3On"
-        //command "light3Off"
+        command "fan3High"		
 		command "light3Toggle"
+		
+		command "fan4Off"
+        command "fan4Low"
+        command "fan4Medium"
+        command "fan4High"		
+		command "light4Toggle"
 	}
     
     ////switchs are push style switches because arduino isn't able to tell if the fans are on or not. 
@@ -86,9 +86,23 @@ metadata {
 		standardTile("fan3off", "device.fan3off", canChangeIcon: false, inactiveLabel: false, decoration: "flat") {
 			state "off", label: "", action: "fan3Off", icon:"st.thermostat.fan-off"		 
 		} 
+		
+// fan 4		
+		standardTile("fan4", "device.fan4", width: 2, height: 2, canChangeIcon: true) {        	
+        	state "off", label:'OFF', action:"fan4Low", icon:"st.Lighting.light24", backgroundColor:"#ffffff", nextState: "low"
+			state "low", label:'LOW', action:"fan4Medium", icon:"st.Lighting.light24", backgroundColor:"#79b821", nextState: "medium"
+			state "medium", label:'MEDIUM', action:"fan4High", icon:"st.Lighting.light24", backgroundColor:"#79b821", nextState: "high"
+			state "high", label:'HIGH', action:"fan4Off", icon:"st.Lighting.light24", backgroundColor:"#79b821", nextState: "off"			
+		}	
+        standardTile("light4", "device.light4", canChangeIcon: false, inactiveLabel: false, decoration: "flat") {            
+            state "off", label: "ON/OFF", action: "light4Toggle", icon:"st.Lighting.light14"			
+        }			
+		standardTile("fan4off", "device.fan4off", canChangeIcon: false, inactiveLabel: false, decoration: "flat") {
+			state "off", label: "", action: "fan4Off", icon:"st.thermostat.fan-off"		 
+		} 
    
 		main "fan1"
-		details(["fan1", "light1", "fan1off", "fan2", "light2", "fan2off", "fan3", "light3", "fan3off"])
+		details(["fan1", "light1", "fan1off", "fan2", "light2", "fan2off", "fan3", "light3", "fan3off", "fan4", "light4", "fan4off"])
 	}      
 }
 
@@ -113,16 +127,7 @@ def fan1High() {
 	log.debug "Turning Fan 1 to High"
     zigbee.smartShield(text: "fan1high").format()
 }
-/*
-def light1On() {	 	 
-	sendEvent(name: "light1", value: "on", isStateChange: true, display: false)	  
-	light1Toggle()
-}
-def light1Off() {	  	 
-	sendEvent(name: "light1", value: "off", isStateChange: true, display: false)    	
-    light1Toggle()
-}
-*/
+
 def light1Toggle() { 
 	log.info "Light 1 toggle" 
     zigbee.smartShield(text: "fan1light").format()
@@ -148,16 +153,6 @@ def fan2High() {
 	log.debug "Turning Fan 2 to High"
     zigbee.smartShield(text: "fan2high").format()
 }
-/*
-def light2On() {	 	 
-	sendEvent(name: "light2", value: "on", isStateChange: true, display: false)	  
-	light2Toggle()
-}
-def light2Off() {	  	 
-	sendEvent(name: "light2", value: "off", isStateChange: true, display: false)    	
-    light2Toggle()
-}
-*/
 def light2Toggle() { 
 	log.info "Light 2 toggle" 
     zigbee.smartShield(text: "fan2light").format()
@@ -183,17 +178,32 @@ def fan3High() {
 	log.debug "Turning Fan 3 to High"
     zigbee.smartShield(text: "fan3high").format()
 }
-/*
-def light3On() {	 	 
-	sendEvent(name: "light3", value: "on", isStateChange: true, display: false)	  
-	light3Toggle()
-}
-def light3Off() {	  	 
-	sendEvent(name: "light3", value: "off", isStateChange: true, display: false)    		
-    light3Toggle()
-}
-*/
 def light3Toggle() { 
 	log.info "Light 3 toggle"
     zigbee.smartShield(text: "fan3light").format()
+}
+
+def fan4Off() {
+    sendEvent(name: "fan4", value: "off", isStateChange: true, display: false)//turns the switch back off
+	log.debug "Turning Fan 4 Off"
+    zigbee.smartShield(text: "fan4off").format()//send command over to arduino
+} 
+def fan4Low() {
+    sendEvent(name: "fan4", value: "low", isStateChange: true, display: false)
+	log.debug "Turning Fan 4 to Low"
+    zigbee.smartShield(text: "fan4low").format()
+}
+def fan4Medium() {
+	sendEvent(name: "fan4", value: "medium", isStateChange: true, display: false)
+	log.debug "Turning Fan 4 to Medium"
+    zigbee.smartShield(text: "fan4medium").format()
+}
+def fan4High() {
+	sendEvent(name: "fan4", value: "high", isStateChange: true, display: false)
+	log.debug "Turning Fan 4 to High"
+    zigbee.smartShield(text: "fan4high").format()
+}
+def light4Toggle() { 
+	log.info "Light 4 toggle"
+    zigbee.smartShield(text: "fan4light").format()
 }

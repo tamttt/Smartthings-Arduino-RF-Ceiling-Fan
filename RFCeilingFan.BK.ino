@@ -12,7 +12,6 @@
 #define PIN_THING_RX    3
 #define PIN_THING_TX    2
 
-/*
 #define RF_FAN1_OFF			1053804		//RF signal collected by RCSwitch & receiver 433 module
 #define RF_FAN1_LOW			1053800
 #define RF_FAN1_MEDIUM		1053794
@@ -31,12 +30,11 @@
 #define RF_FAN3_HIGH		13645190
 #define RF_FAN3_LIGHT		13645189
 
-#define RF_FAN4_OFF			7088709
+#define RF_FAN4_OFF			7088716
 #define RF_FAN4_LOW			7088712
 #define RF_FAN4_MEDIUM		7088706
 #define RF_FAN4_HIGH		7088710
 #define RF_FAN4_LIGHT		7088716
-*/
 
 RCSwitch mySwitch = RCSwitch();
 
@@ -82,162 +80,142 @@ void loop()
 
 void fan1off()
 {
-  //mySwitch.send(1053804RF_FAN1_OFF, 24);  // living room fan off
-  mySwitch.send(1053804, 24);				
-  //smartthing.send("arduino turn fan 1 off");	// send message to cloud
-  //Serial.println("fan 1 off");
+  mySwitch.send(RF_FAN1_OFF, 24);				// living room fan off
+  smartthing.send("arduino turn fan 1 off");	// send message to cloud
+  Serial.println("fan 1 off");
 }
 
 void fan1low()
 {
-  //mySwitch.send(RF_FAN1_LOW, 24);
-  mySwitch.send(1053800, 24);
-  //smartthing.send("arduino turn fan 1 low");
-  //Serial.println("fan 1 low");
+  mySwitch.send(RF_FAN1_LOW, 24);
+  smartthing.send("arduino turn fan 1 low");
+  Serial.println("fan 1 low");
 }
 
 void fan1medium()
 {
-  //mySwitch.send(RF_FAN1_MEDIUM, 24);
-  mySwitch.send(1053794, 24);
-  //smartthing.send("arduino turn fan 1 medium");
-  //Serial.println("fan 1 medium");
+  mySwitch.send(RF_FAN1_MEDIUM, 24);
+  smartthing.send("arduino turn fan 1 medium");
+  Serial.println("fan 1 medium");
 }
 
 void fan1high()
 {
-  //mySwitch.send(RF_FAN1_HIGH, 24);
-  mySwitch.send(1053798, 24);
-  //smartthing.send("arduino turn fan 1 high");
-  //Serial.println("fan 1 high");
+  mySwitch.send(RF_FAN1_HIGH, 24);
+  smartthing.send("arduino turn fan 1 high");
+  Serial.println("fan 1 high");
 }
 
 void fan1light()
 {
-  //mySwitch.send(RF_FAN1_LIGHT, 24);
-  mySwitch.send(1053797, 24);
-  //smartthing.send("arduino send light 1");
-  //Serial.println("fan 1 light");
+  mySwitch.send(RF_FAN1_LIGHT, 24);
+  smartthing.send("arduino send light 1");
+  Serial.println("fan 1 light");
 }
 
 void fan2off()
 {
-  //mySwitch.send(RF_FAN2_OFF, 24);		// kitchen fan off
-  mySwitch.send(13625132, 24);
-  //smartthing.send("arduino turn fan 2 off");
-  //Serial.println("fan 2 off");
+  mySwitch.send(RF_FAN2_OFF, 24);		// kitchen fan off
+  smartthing.send("arduino turn fan 2 off");
+  Serial.println("fan 2 off");
 }
 
 void fan2low()
 {
-  //mySwitch.send(RF_FAN2_LOW, 24);
-  mySwitch.send(13625128, 24);
-  //smartthing.send("arduino turn fan 2 low");
-  //Serial.println("fan 2 low");
+  mySwitch.send(RF_FAN2_LOW, 24);
+  smartthing.send("arduino turn fan 2 low");
+  Serial.println("fan 2 low");
 }
 
 void fan2medium()
 {
-  //mySwitch.send(RF_FAN2_MEDIUM, 24);
-  mySwitch.send(13625122, 24);
-  //smartthing.send("arduino turn fan 2 medium");
-  //Serial.println("fan 2 medium");
+  mySwitch.send(RF_FAN2_MEDIUM, 24);
+  smartthing.send("arduino turn fan 2 medium");
+  Serial.println("fan 2 medium");
 }
 
 void fan2high()
 {
-  //mySwitch.send(RF_FAN2_HIGH, 24);
-  mySwitch.send(13625126, 24);
-  //smartthing.send("arduino turn fan 2 high");
-  //Serial.println("fan 2 high");
+  mySwitch.send(RF_FAN2_HIGH, 24);
+  smartthing.send("arduino turn fan 2 high");
+  Serial.println("fan 2 high");
 }
 
 void fan2light()
 {
-  //mySwitch.send(RF_FAN2_LIGHT, 24);
-  mySwitch.send(13625125, 24);
-  //smartthing.send("arduino send light 2");
-  //Serial.println("fan 2 light");
+  mySwitch.send(RF_FAN2_LIGHT, 24);
+  smartthing.send("arduino send light 2");
+  Serial.println("fan 2 light");
 }
 
 void fan3off()
 {
-  //mySwitch.send(RF_FAN3_OFF, 24);		// bedroom fan off
-  mySwitch.send(13645196, 24);
-  //smartthing.send("arduino turn fan 3 off");
-  //Serial.println("fan 3 off");
+  mySwitch.send(RF_FAN3_OFF, 24);		// bedroom fan off
+  smartthing.send("arduino turn fan 3 off");
+  Serial.println("fan 3 off");
 }
 
 void fan3low()
 {
-  //mySwitch.send(RF_FAN3_LOW, 24);
-  mySwitch.send(13645192, 24);
-  //smartthing.send("arduino turn fan 3 low");
-  //Serial.println("fan 3 low");
+  mySwitch.send(RF_FAN3_LOW, 24);
+  smartthing.send("arduino turn fan 3 low");
+  Serial.println("fan 3 low");
 }
 
 void fan3medium()
 {
-  //mySwitch.send(RF_FAN3_MEDIUM, 24);
-  mySwitch.send(13645186, 24);
-  //smartthing.send("arduino turn fan 3 medium");
-  //Serial.println("fan 3 medium");
+  mySwitch.send(RF_FAN3_MEDIUM, 24);
+  smartthing.send("arduino turn fan 3 medium");
+  Serial.println("fan 3 medium");
 }
 
 void fan3high()
 {
-  //mySwitch.send(RF_FAN3_HIGH, 24);
-  mySwitch.send(13645190, 24);
-  //smartthing.send("arduino turn fan 3 high");
-  //Serial.println("fan 3 high");
+  mySwitch.send(RF_FAN3_HIGH, 24);
+  smartthing.send("arduino turn fan 3 high");
+  Serial.println("fan 3 high");
 }
 
 void fan3light()
 {
-  //mySwitch.send(RF_FAN3_LIGHT, 24);
-  mySwitch.send(13645189, 24);
-  //smartthing.send("arduino send light 3");
-  //Serial.println("fan 3 light");
+  mySwitch.send(RF_FAN3_LIGHT, 24);
+  smartthing.send("arduino send light 3");
+  Serial.println("fan 3 light");
 }
 
 void fan4off()
 {
-  //mySwitch.send(RF_FAN4_OFF, 24);	// study room fan off	
-  mySwitch.send(7088709, 24);
-  //smartthing.send("arduino turn fan 4 off");	
-  //Serial.println("fan 4 off");
+  mySwitch.send(RF_FAN4_OFF, 24);				
+  smartthing.send("arduino turn fan 4 off");	
+  Serial.println("fan 4 off");
 }
 
 void fan4low()
 {
-  //mySwitch.send(RF_FAN4_LOW, 24);
-  mySwitch.send(7088712, 24);
-  //smartthing.send("arduino turn fan 4 low");
-  //Serial.println("fan 4 low");
+  mySwitch.send(RF_FAN4_LOW, 24);
+  smartthing.send("arduino turn fan 4 low");
+  Serial.println("fan 4 low");
 }
 
 void fan4medium()
 {
-  //mySwitch.send(RF_FAN4_MEDIUM, 24);
-  mySwitch.send(7088706, 24);
-  //smartthing.send("arduino turn fan 4 medium");
-  //Serial.println("fan 4 medium");
+  mySwitch.send(RF_FAN4_MEDIUM, 24);
+  smartthing.send("arduino turn fan 4 medium");
+  Serial.println("fan 4 medium");
 }
 
 void fan4high()
 {
-  //mySwitch.send(RF_FAN4_HIGH, 24);
-  mySwitch.send(7088710, 24);
-  //smartthing.send("arduino turn fan 4 high");
-  //Serial.println("fan 4 high");
+  mySwitch.send(RF_FAN4_HIGH, 24);
+  smartthing.send("arduino turn fan 4 high");
+  Serial.println("fan 4 high");
 }
 
 void fan4light()
 {
-  //mySwitch.send(RF_FAN4_LIGHT, 24);
-  mySwitch.send(7088716, 24);
-  //smartthing.send("arduino send light 4");
-  //Serial.println("fan 4 light");
+  mySwitch.send(RF_FAN4_LIGHT, 24);
+  smartthing.send("arduino send light 4");
+  Serial.println("fan 4 light");
 }
 
 void messageCallout(String message)
