@@ -41,6 +41,12 @@ metadata {
             state ("default", label:'${currentValue}')
         }
 */
+/*		
+		//Slider not show in display but kept in for trouble shooting / testing, if needed. 
+		controlTile("levelSliderControl", "device.level", "slider", height: 1, width: 3, inactiveLabel: false) {
+			state "level", action:"switch level.setLevel"
+		}		
+*/
 		
         standardTile("light", "device.light", canChangeIcon: false, inactiveLabel: false, decoration: "flat") {            
             //state "off", label: 'ON/OFF', action: "lightOn", icon:"st.Lighting.light11", backgroundColor: "#ffffff", nextState: "on"
@@ -50,14 +56,8 @@ metadata {
 		
 		standardTile("fanoff", "device.fanoff", canChangeIcon: false, inactiveLabel: false, decoration: "flat") {
 			state "off", label: "", action: "fanOff", icon:"st.thermostat.fan-off"		 
-		}    
-		
-/*		
-		//Slider not show in display but kept in for trouble shooting / testing, if needed. 
-		controlTile("levelSliderControl", "device.level", "slider", height: 1, width: 3, inactiveLabel: false) {
-			state "level", action:"switch level.setLevel"
-		}		
-*/
+		}    		
+
 		//Speed control row
         standardTile("fanLow", "device.level", inactiveLabel: false, decoration: "flat") {
             state "fanLow", label:'LOW', action:"fanLow", icon:"st.Home.home30"
@@ -94,37 +94,51 @@ def off() {
 	
 //take value and turns it into string string value (off, low, med, high)
 def setLevel(val){
+	log.info "Set level to $val"
     sendEvent(name:"level",value:val)
     sendEvent(name:"switch.setLevel",value:val) // had to add this to work if apps subscribed to setLevel event. "Dim With Me" was one.
+	if (val == 0) {
+		log.info "Fan off"
+		sendEvent(name: "fan", value: "off", isStateChange: true, display: false) 
+	}
+	if (val == 25) {
+		log.info "Fan low" 
+		sendEvent(name: "fan", value: "low", isStateChange: true, display: false) 
+	}
+	if (val == 50) {
+		log.info "Fan medium"
+		sendEvent(name: "fan", value: "medium", isStateChange: true, display: false) 
+	}
+	if (val == 75) {
+		log.info "Fan high"
+		sendEvent(name: "fan", value: "high", isStateChange: true, display: false) 
+	}
 }
 
 def fanLow() {		
-    setLevel(25)	
-    log.info "Fan low"
-	sendEvent(name: "fan", value: "low", isStateChange: true, display: false)      
+    setLevel(25)    
+	//sendEvent(name: "fan", value: "low", isStateChange: true, display: false)      
     //sendEvent(name: "currentSpeed", value: "LOW" as String)      
 }
 
-def fanMedium() {
-	//fan.on()
+def fanMedium() {	
     setLevel(50)
-	log.info "Fan medium"    
-	sendEvent(name: "fan", value: "medium", isStateChange: true, display: false) 
+	//log.info "Fan medium"    
+	//sendEvent(name: "fan", value: "medium", isStateChange: true, display: false) 
 	//sendEvent(name: "currentSpeed", value: "MEDIUM" as String)
 }
 
-def fanHigh() {
-	//fan.on()
+def fanHigh() {	
     setLevel(75)
-	log.info "Fan high"    
-	sendEvent(name: "fan", value: "high", isStateChange: true, display: false)   
+	//log.info "Fan high"    
+	//sendEvent(name: "fan", value: "high", isStateChange: true, display: false)   
 	//sendEvent(name: "currentSpeed", value: "HIGH" as String)	
 }
 
 def fanOff() {	
     setLevel(0)
-	log.info "Fan off"    
-	sendEvent(name: "fan", value: "off", isStateChange: true, display: false)   
+	//log.info "Fan off"    
+	//sendEvent(name: "fan", value: "off", isStateChange: true, display: false)   
 	//sendEvent(name: "currentSpeed", value: "OFF" as String)	
 }
 
