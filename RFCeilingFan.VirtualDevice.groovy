@@ -23,17 +23,17 @@ metadata {
 		attribute "fan", "string"
         attribute "light", "string"
 		attribute "fanoff", "string"
-		attribute "currentSpeed", "string"
+		//attribute "currentSpeed", "string"
 		//attribute "lightStatus", "string"
 	}
 
 	tiles {
 		
 		standardTile("fan", "device.fan", width: 2, height: 2, canChangeIcon: true) {
+			state "off", label:'OFF', action:"fanLow", icon:"st.Lighting.light24", backgroundColor:"#ffffff", nextState: "low"	
 			state "low", label:'LOW', action:"fanMedium", icon:"st.Lighting.light24", backgroundColor:"#79b821", nextState: "medium"
 			state "medium", label:'MEDIUM', action:"fanHigh", icon:"st.Lighting.light24", backgroundColor:"#79b821", nextState: "high"
-			state "high", label:'HIGH', action:"fanOff", icon:"st.Lighting.light24", backgroundColor:"#79b821", nextState: "off"	
-			state "off", label:'OFF', action:"fanLow", icon:"st.Lighting.light24", backgroundColor:"#ffffff", nextState: "low"				
+			state "high", label:'HIGH', action:"fanOff", icon:"st.Lighting.light24", backgroundColor:"#79b821", nextState: "off"							
 		}
 /*		
 		//displays current speed as off, low, med, high
@@ -52,11 +52,12 @@ metadata {
 			state "off", label: "", action: "fanOff", icon:"st.thermostat.fan-off"		 
 		}    
 		
+/*		
 		//Slider not show in display but kept in for trouble shooting / testing, if needed. 
 		controlTile("levelSliderControl", "device.level", "slider", height: 1, width: 3, inactiveLabel: false) {
 			state "level", action:"switch level.setLevel"
-		}
-
+		}		
+*/
 		//Speed control row
         standardTile("fanLow", "device.level", inactiveLabel: false, decoration: "flat") {
             state "fanLow", label:'LOW', action:"fanLow", icon:"st.Home.home30"
@@ -100,31 +101,31 @@ def setLevel(val){
 def fanLow() {		
     setLevel(25)	
     log.info "Fan low"
-	sendEvent(name: "fan", value: "on", isStateChange: true, display: false)      
-    sendEvent(name: "currentSpeed", value: "LOW" as String)      
+	sendEvent(name: "fan", value: "low", isStateChange: true, display: false)      
+    //sendEvent(name: "currentSpeed", value: "LOW" as String)      
 }
 
 def fanMedium() {
 	//fan.on()
     setLevel(50)
 	log.info "Fan medium"    
-	sendEvent(name: "fan", value: "on", isStateChange: true, display: false) 
-	sendEvent(name: "currentSpeed", value: "MEDIUM" as String)
+	sendEvent(name: "fan", value: "medium", isStateChange: true, display: false) 
+	//sendEvent(name: "currentSpeed", value: "MEDIUM" as String)
 }
 
 def fanHigh() {
 	//fan.on()
     setLevel(75)
 	log.info "Fan high"    
-	sendEvent(name: "fan", value: "on", isStateChange: true, display: false)   
-	sendEvent(name: "currentSpeed", value: "HIGH" as String)	
+	sendEvent(name: "fan", value: "high", isStateChange: true, display: false)   
+	//sendEvent(name: "currentSpeed", value: "HIGH" as String)	
 }
 
 def fanOff() {	
     setLevel(0)
 	log.info "Fan off"    
 	sendEvent(name: "fan", value: "off", isStateChange: true, display: false)   
-	sendEvent(name: "currentSpeed", value: "OFF" as String)	
+	//sendEvent(name: "currentSpeed", value: "OFF" as String)	
 }
 
 def lightPush() {
